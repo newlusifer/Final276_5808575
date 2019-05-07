@@ -20,7 +20,7 @@ io.on("connection",function(socket){
     {
         
         console.log("welcome player"+" : "+i);
-       // socket.emit("hello");
+        socket.emit("startGuess");
     }    
 
     socket.on("disconnect",function(){
