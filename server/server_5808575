@@ -9,17 +9,17 @@ var NumberGuess =Math.floor(Math.random() * (+max - +min)) + +min;
 console.log("server is started");
 
 
-console.log(NumberGuess);
+console.log("numberGuess is "+NumberGuess);
 
 io.on("connection",function(socket){
     console.log("client is connected");
-
+    console.log();
     playerCount++;
 
     for(i=1;i<playerCount;i++)
     {
         
-        console.log("welcome player"+" : "+i);
+        //console.log("welcome player"+" : "+i);
         socket.emit("startGuess");
     }    
 
@@ -28,4 +28,21 @@ io.on("connection",function(socket){
         playerCount--;
     })
 
+    socket.on("guess",function(e){
+        console.log("player guess "+e);
+        if (e>NumberGuess){
+            socket.emit("than");
+        }
+
+        if (e<NumberGuess){
+            socket.emit("less");
+        }
+
+        if (e==NumberGuess){
+            socket.emit("equal");
+        }
     });
+
+    });
+
+    

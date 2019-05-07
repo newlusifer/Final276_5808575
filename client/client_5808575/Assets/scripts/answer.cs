@@ -20,17 +20,37 @@ public class answer : MonoBehaviour
     void Update()
     {
         networkConnection.socket.On("startGuess",OnStartGuess);
+        networkConnection.socket.On("than",OnThan);
+        networkConnection.socket.On("less", OnLess);
+        networkConnection.socket.On("equal", OnEqual);
     }
 
     public void onGetInput()
     {
         getInput = int.Parse(inPut.text);
-        textShow.text = getInput.ToString();
-        Debug.Log(getInput);
+        //textShow.text = getInput.ToString();
+        Debug.Log("guess "+getInput);
+        JSONObject JoB = new JSONObject(getInput);
+        networkConnection.socket.Emit("guess",JoB);
     }
 
     void OnStartGuess (SocketIOEvent e)
     {
         textShow.text = "StartGuess";
+    }
+
+    void OnThan(SocketIOEvent e)
+    {
+        textShow.text = "Than";
+    }
+
+    void OnLess(SocketIOEvent e)
+    {
+        textShow.text = "Less";
+    }
+
+    void OnEqual(SocketIOEvent e)
+    {
+        textShow.text = "Equal";
     }
 }
