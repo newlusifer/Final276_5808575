@@ -31,6 +31,9 @@ public class answer : MonoBehaviour
         //textShow.text = getInput.ToString();
         Debug.Log("guess "+getInput);
         JSONObject JoB = new JSONObject(getInput);
+        JSONObject JoB2 = new JSONObject(networkConnection.Name);
+
+        networkConnection.socket.Emit("cName", JoB2);
         networkConnection.socket.Emit("guess",JoB);
     }
 

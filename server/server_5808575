@@ -6,6 +6,8 @@ var min=0;
 var max=99;  
 var NumberGuess =Math.floor(Math.random() * (+max - +min)) + +min;
 
+var currentPlayer="player";
+
 console.log("server is started");
 
 
@@ -13,14 +15,15 @@ console.log("numberGuess is "+NumberGuess);
 
 io.on("connection",function(socket){
     console.log("client is connected");
-    console.log();
+    
     playerCount++;
-
+    socket.broadcast.emit("startGuess");
     for(i=1;i<playerCount;i++)
     {
         
         console.log("welcome player"+" : "+i);
         socket.emit("startGuess");
+        socket.emit("name",{player:i});
     }    
 
     socket.on("disconnect",function(){
@@ -28,8 +31,16 @@ io.on("connection",function(socket){
         playerCount--;
     })
 
+    socket.on("cName",function(e){
+       currentPlayer=e;
+             // console.log(currentPlayer);
+    });
+    
+
     socket.on("guess",function(e){
-        console.log("player guess "+e);
+        console.log();
+        console.log(currentPlayer);
+         console.log("Guess = "+e);
         if (e>NumberGuess){
             socket.emit("than");
         }
