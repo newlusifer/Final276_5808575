@@ -54,6 +54,6 @@ public class answer : MonoBehaviour
 
     void OnWinner(SocketIOEvent e)
     {
-        textShow.text = "The winner is....";
+        textShow.text = "The winner is...."+e.data.ToString();
     }
 }

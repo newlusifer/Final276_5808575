@@ -7,13 +7,15 @@ var max=99;
 var NumberGuess =Math.floor(Math.random() * (+max - +min)) + +min;
 
 var currentPlayer="player";
-
+console.log();
+console.log("*************************************************************************************************************");
 console.log("server is started");
 
 
 console.log("numberGuess is "+NumberGuess);
 
 io.on("connection",function(socket){
+    console.log();
     console.log("client is connected");
     
     playerCount++;
@@ -50,14 +52,18 @@ io.on("connection",function(socket){
         }
 
         if (e==NumberGuess){
-           socket.broadcast.emit("winner");
+            console.log();
+            console.log("the winner is....... ");
+            console.log(currentPlayer);
+           socket.broadcast.emit("winner",currentPlayer);
            for(i=1;i<playerCount;i++)
     {
-        socket.emit("winner");        
+        socket.emit("winner",currentPlayer);        
     }    
 
+    console.log();
     NumberGuess =Math.floor(Math.random() * (+max - +min)) + +min;
-    console.log("numberGuess is "+NumberGuess);
+    console.log("New numberGuess is "+NumberGuess);
         }
     });
 
