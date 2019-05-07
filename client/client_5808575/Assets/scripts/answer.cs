@@ -22,7 +22,7 @@ public class answer : MonoBehaviour
         networkConnection.socket.On("startGuess",OnStartGuess);
         networkConnection.socket.On("than",OnThan);
         networkConnection.socket.On("less", OnLess);
-        networkConnection.socket.On("equal", OnEqual);
+        networkConnection.socket.On("winner", OnWinner);
     }
 
     public void onGetInput()
@@ -49,8 +49,8 @@ public class answer : MonoBehaviour
         textShow.text = "Less";
     }
 
-    void OnEqual(SocketIOEvent e)
+    void OnWinner(SocketIOEvent e)
     {
-        textShow.text = "Equal";
+        textShow.text = "The winner is....";
     }
 }
