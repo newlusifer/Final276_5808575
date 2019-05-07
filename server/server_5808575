@@ -1,0 +1,31 @@
+var io=require('socket.io')(process.env.PORT||3000);
+
+var playerCount = 1;
+
+var min=0; 
+var max=99;  
+var NumberGuess =Math.floor(Math.random() * (+max - +min)) + +min;
+
+console.log("server is started");
+
+
+console.log(NumberGuess);
+
+io.on("connection",function(socket){
+    console.log("client is connected");
+
+    playerCount++;
+
+    for(i=1;i<playerCount;i++)
+    {
+        
+        console.log("welcome player"+" : "+i);
+       // socket.emit("hello");
+    }    
+
+    socket.on("disconnect",function(){
+        console.log("client disconnect");
+        playerCount--;
+    })
+
+    });
